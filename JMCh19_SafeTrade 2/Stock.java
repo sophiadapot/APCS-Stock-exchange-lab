@@ -15,7 +15,60 @@ public class Stock
     private int volume;
     private PriorityQueue<TradeOrder> buyOrders, sellOrders;
 
-    // TODO complete class
+    public Stock(String symbol, String name, double price)
+    {
+        stockSymbol=symbol;
+        loPrice=price;
+        hiPrice=price;
+        lastPrice=price;
+        volume=0;
+        sellOrders=new PriorityQueue<>();
+        PriceComparator sell=new PriceComparator(true);
+        buyOrders=new PriorityQueue<>();
+        PriceComparator buuy=new PriceComparator(false);
+    }
+
+    public String getQuote()
+    {
+        String ask="";
+        String buy="";
+        if (sellOrders.isEmpty())
+        {
+            ask=" none";
+        }
+        else if (!sellOrders.isEmpty())
+        {
+            ask=" "+sellOrders.peek()+" size: "+sellOrders.peek().getShares();
+        }
+        if (buyOrders.isEmpty())
+        {
+            buy="  none";
+        }
+        else if (!buyOrders.isEmpty())
+        {
+            buy="  "+buyOrders.peek()+" size: "+buyOrders.peek().getShares();
+        }
+
+        return (companyName+" ("+stockSymbol+")\nPrice: "+lastPrice+"  hi: "+hiPrice+"  lo: "+loPrice+". vol: "+volume+"\nAsk:"+ask+"  Bid:"+buy);
+    }
+
+    public void placeOrder(TradeOrder order)
+    {
+        //need to add to priority queue
+        Trader trader=order.getTrader();
+        if (order.isBuy())
+        {
+            buyOrders.add(order);
+            String msg="New order:  Buy"+stockSymbol+" ("+companyName+")\n"+order.getShares()+" shares at $"+order.getPrice();
+            trader.recieveMessage(msg);
+        }
+        else
+        {
+            sellOrders.add(order);
+            String msg="New order:  Sell"+stockSymbol+" ("+companyName+")\n"+order.getShares()+" shares at market";
+            trader.recieveMessage(msg);
+        }
+    }
 
     
     //
