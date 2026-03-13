@@ -14,6 +14,47 @@ public class TradeOrder
     private double price;
 
     // TODO complete class
+public TradeOrder(Trader trader, String symbol, boolean buyOrder, boolean marketOrder, int numShares, double price)
+{
+    this.trader = trader;
+    this.symbol = symbol;
+    this.buyOrder = buyOrder;
+    this.marketOrder = marketOrder;
+    this.numShares = numShares;
+    this.price = price;
+}
+
+public Trader getTrader()
+{
+    return trader;
+}
+
+public String getSymbol()
+{
+    return symbol;
+}
+
+public boolean getBuyOrder()
+{
+    return buyOrder;
+}
+
+public boolean getMarketOrder()
+{
+    return marketOrder;
+}
+
+public int getNumShares()
+{
+    return numShares;
+}
+
+public double getPrice()
+{
+    return price;
+}
+
+
 
     //
     // The following are for test purposes only
