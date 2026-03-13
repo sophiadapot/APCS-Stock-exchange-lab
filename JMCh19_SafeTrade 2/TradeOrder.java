@@ -34,17 +34,22 @@ public String getSymbol()
     return symbol;
 }
 
-public boolean getBuyOrder()
+public boolean isBuy()
 {
     return buyOrder;
 }
 
-public boolean getMarketOrder()
+public boolean isSell()
+{
+    return !buyOrder;
+}
+
+public boolean isMarket()
 {
     return marketOrder;
 }
 
-public int getNumShares()
+public int getShares()
 {
     return numShares;
 }
@@ -54,6 +59,15 @@ public double getPrice()
     return price;
 }
 
+public boolean isLimit()
+{
+    return !marketOrder;
+}
+
+public void subtractShares(int amount)
+{
+    numShares -= amount;
+}
 
 
     //
