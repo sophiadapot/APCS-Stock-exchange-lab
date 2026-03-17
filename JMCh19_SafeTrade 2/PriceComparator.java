@@ -18,11 +18,11 @@ public class PriceComparator implements java.util.Comparator<TradeOrder>
     @Override
     public int compare(TradeOrder o1, TradeOrder o2) {
         {
-            if (o1.isMarketOrder()&&o2.isMarketOrder())
-            return 0;
-            else if (o1.isMarketOrder()&&!o2.isMarketOrder())
+            if (o1.isMarket()&&o2.isMarket())
+                return 0;
+            if (o1.isMarket()&&o2.isLimit())
                 return -1;
-            else if (!o1.isMarketOrder()&&o2.isMarketOrder())
+            if (o1.isLimit()&&o2.isMarket())
                 return 1;
             double cent1=o1.getPrice();
             double cent2=o2.getPrice();
