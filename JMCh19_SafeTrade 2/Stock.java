@@ -18,33 +18,24 @@ public class Stock
     public Stock(String symbol, String name, double price)
     {
         stockSymbol=symbol;
+        companyName=name;
         loPrice=price;
         hiPrice=price;
         lastPrice=price;
         volume=0;
         sellOrders=new PriorityQueue<>(new PriceComparator(true));
-        PriceComparator sell=new PriceComparator(true);
         buyOrders=new PriorityQueue<>(new PriceComparator(false));
-        PriceComparator buy=new PriceComparator(false);
     }
 
     public String getQuote()
     {
-        String ask="";
-        String buy="";
-        if (sellOrders.isEmpty())
-        {
-            ask=" none";
-        }
-        else if (!sellOrders.isEmpty())
+        String ask=" none";
+        String buy=" none";
+        if (!sellOrders.isEmpty())
         {
             ask=" "+money.format(sellOrders.peek().getPrice())+" size: "+sellOrders.peek().getShares();
         }
-        if (buyOrders.isEmpty())
-        {
-            buy="  none";
-        }
-        else if (!buyOrders.isEmpty())
+        if (!buyOrders.isEmpty())
         {
             buy="  "+money.format(buyOrders.peek().getPrice())+" size: "+buyOrders.peek().getShares();
         }
@@ -69,26 +60,33 @@ public class Stock
         {
             buyOrders.add(order);
             String msg="New order:  Buy"+stockSymbol+" ("+companyName+")\n"+order.getShares()+" shares at "+price;
-            trader.recieveMessage(msg);
+            trader.receiveMessage(msg);
         }
         else
         {
             sellOrders.add(order);
             String msg="New order:  Sell"+stockSymbol+" ("+companyName+")\n"+order.getShares()+" shares at "+price;
-            trader.recieveMessage(msg);
+            trader.receiveMessage(msg);
         }
+        executeOrders();
     }
 
     public void executeOrders()
     {
+        while(!buyOrders.isEmpty()&&!sellOrders.isEmpty())
+        {
         TradeOrder sell=sellOrders.peek();
         TradeOrder buy=buyOrders.peek();
         double sellprice=sell.getPrice();
         double buyprice=buy.getPrice();
         double price=0;
-        if (sell.isLimit()&&buy.isLimit()&&buy.getPrice()>=sellprice)
+
+        if (sell.isLimit()&&buy.isLimit())
         {
-            price=sellprice;
+            if (buy.getPrice()>=sell.getPrice())
+            price=sell.getPrice();
+            else
+                break;
         }
         else if (sell.isLimit()&&!buy.isLimit())
         {
@@ -117,6 +115,8 @@ public class Stock
             sellOrders.remove();
         if (buy.getShares()==0)
             buyOrders.remove();
+
+        lastPrice=price;
         volume+=shares;
         if (price<loPrice)
             loPrice=price;
@@ -124,7 +124,9 @@ public class Stock
             hiPrice=price;
         Trader seller=sell.getTrader();
         Trader buyer=buy.getTrader();
-        seller.recieveMessage("You sold: "+shares+" "+stockSymbol+" at "+money.format(price)+" amt "+money.format(shares*price));
+        seller.receiveMessage("You sold: "+shares+" "+stockSymbol+" at "+money.format(price)+" amt "+money.format(shares*price));
+        buyer.receiveMessage("You bought: "+shares+" "+stockSymbol+" at "+money.format(price)+" amt "+money.format(shares*price));
+        }
     }
 
 

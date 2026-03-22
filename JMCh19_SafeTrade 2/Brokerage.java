@@ -10,7 +10,6 @@ public class Brokerage implements Login
     private Set<Trader> loggedTraders;
     private StockExchange exchange;
 
-    // TODO complete class
 
     public Brokerage(StockExchange ex){
         traders = new TreeMap<String, Trader>();
@@ -18,7 +17,7 @@ public class Brokerage implements Login
         exchange = ex;
     }
 
-    public void register(String name, String password){
+    public int addUser(String name, String password){
         if(traders.containsKey(name) == false){
             Trader trader = new Trader(this, name, password);
             traders.put(name, trader);
@@ -28,7 +27,7 @@ public class Brokerage implements Login
         }
     }
 
-    public void Login(String name, String password){
+    public int login(String name, String password){
         Trader t = traders.get(name);
         if (t!= null && t.getPassword().equals(password) && !loggedTraders.contains(t))
             loggedTraders.add(t);

@@ -15,19 +15,19 @@ public class StockExchange
         listedStocks = new HashMap<String, Stock>();
     }
 
-    public void addStock(String symb, String name, double price){
+    public void listStock(String symb, String name, double price){
         Stock neww = new Stock(symb, name, price);
         listedStocks.put(symb, neww);
     }
 
-    public void forwardOrderToCorrectStock(TradeOrder trOr){
+    public void placeOrder(TradeOrder trOr){
 
         if (listedStocks.containsKey(trOr.getSymbol()) != false) 
             listedStocks.get(trOr.getSymbol()).placeOrder(trOr);
         
     }
 
-    public String provideQuote(String symb){
+    public String getQuote(String symb){
         if(listedStocks.containsKey(symb) != false){
             return listedStocks.get(symb).getQuote();
         }
