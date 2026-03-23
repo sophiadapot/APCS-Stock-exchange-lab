@@ -59,13 +59,13 @@ public class Stock
         if (order.isBuy())
         {
             buyOrders.add(order);
-            String msg="New order:  Buy"+stockSymbol+" ("+companyName+")\n"+order.getShares()+" shares at "+price;
+            String msg="New order:  Buy "+stockSymbol+" ("+companyName+")\n"+order.getShares()+" shares at "+price;
             trader.receiveMessage(msg);
         }
         else
         {
             sellOrders.add(order);
-            String msg="New order:  Sell"+stockSymbol+" ("+companyName+")\n"+order.getShares()+" shares at "+price;
+            String msg="New order:  Sell "+stockSymbol+" ("+companyName+")\n"+order.getShares()+" shares at "+price;
             trader.receiveMessage(msg);
         }
         executeOrders();

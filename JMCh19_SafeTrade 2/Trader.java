@@ -1,5 +1,6 @@
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.concurrent.LinkedTransferQueue;
 
 /**
  * Represents a stock trader.
@@ -11,10 +12,20 @@ public class Trader implements Comparable<Trader>
     private TraderView myView;
     private Queue<String> mailbox;
 
-    // TODO complete class
+    public Trader(Brokerage brokerage, String name, String pswd)
+    {
+        this.brokerage=brokerage;
+        screenName=name;
+        password=pswd;
+        mailbox=new LinkedList<>();
+    }
     public void receiveMessage(String msg)
     {
         mailbox.add(msg);
+    }
+    public int compareTo(Trader other)
+    {
+        return 0;
     }
 
     //
