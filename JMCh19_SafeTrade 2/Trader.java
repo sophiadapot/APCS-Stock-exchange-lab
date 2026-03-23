@@ -12,7 +12,10 @@ public class Trader implements Comparable<Trader>
     private Queue<String> mailbox;
 
     // TODO complete class
-
+    public void receiveMessage(String msg)
+    {
+        mailbox.add(msg);
+    }
 
     //
     // The following are for test purposes only
