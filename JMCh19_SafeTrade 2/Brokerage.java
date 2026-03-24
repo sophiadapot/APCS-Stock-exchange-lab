@@ -22,9 +22,10 @@ public class Brokerage implements Login
             Trader trader = new Trader(this, name, password);
             traders.put(name, trader);
         }
-        else{
+
+        else
             System.out.println("Already registered");
-        }
+        
     }
 
     public int login(String name, String password){
@@ -42,11 +43,11 @@ public class Brokerage implements Login
         }
     }
 
-    public void forwardOrder(TradeOrder trOr){
+    public void placeOrder(TradeOrder trOr){
         exchange.placeOrder(trOr);
     }
 
-    public String forwardQuote(String symbol)
+    public String getQuote(String symbol)
     {
         return exchange.getQuote(symbol);
     }
