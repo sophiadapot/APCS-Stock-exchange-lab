@@ -28,6 +28,14 @@ public class Trader implements Comparable<Trader>
         return 0;
     }
 
+    public String getName(Trader t){
+        
+    }
+
+    public String getPassword(Trader t){
+        
+    }
+
     //
     // The following are for test purposes only
     //
