@@ -12,29 +12,57 @@ public class Trader implements Comparable<Trader>
     private TraderView myView;
     private Queue<String> mailbox;
 
-    public Trader(Brokerage brokerage, String name, String pswd)
-    {
-        this.brokerage=brokerage;
-        screenName=name;
-        password=pswd;
-        mailbox=new LinkedList<>();
-    }
-    public void receiveMessage(String msg)
-    {
-        mailbox.add(msg);
-    }
-    public int compareTo(Trader other)
-    {
-        return 0;
-    }
+public Trader(Brokerage brokerage, String screenName, String password)
+{
+    this.brokerage = brokerage;
+    this.screenName = screenName;
+    this.password = password;
+    mailbox = new LinkedList<String>();
+    //this.myView = new TraderWindow(this);
+}
 
-    public String getName(Trader t){
-        
+public void receiveMessage(String message)
+{
+    if(message != null)
+    {
+    mailbox.add(message);
     }
+}
 
-    public String getPassword(Trader t){
-        
-    }
+public int compareTo(Trader t)
+{
+    return screenName.compareTo(t.screenName);
+}
+
+public String getName()
+{
+    return screenName;
+}
+
+public String getPassword()
+{
+    return password;
+}
+
+public String getQuote(String symbol)
+{
+    return brokerage.getQuote(symbol);
+}
+
+public void placeOrder(TradeOrder trOr)
+{
+    brokerage.placeOrder(trOr);
+}
+
+public void quit()
+{
+    brokerage.logout(this);
+}
+
+public void setView(TraderView v)
+{
+    myView = v;
+}
 
     //
     // The following are for test purposes only
