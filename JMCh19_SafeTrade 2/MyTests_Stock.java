@@ -74,6 +74,23 @@ public class MyTests_Stock {
 
         printvalues(meta);
 
+        System.out.println("sell is market buy is limit (nflx,4)");
+         Stock netflix=new Stock("met", "meta", 10.00);
+        Trader testn=new Trader(b,"test","123");
+        Trader test2n=new Trader(b,"test","123");
+
+        TradeOrder buy25=new TradeOrder(testn,"met",true,true,5,12.00);
+        TradeOrder buy_5=new TradeOrder(test2n,"met",true,true,5,10.00);
+        TradeOrder sell_5=new TradeOrder(test2, "met", false, false, 4, 11.00);
+
+        netflix.placeOrder(sell_5);
+        netflix.placeOrder(buy25);
+        netflix.placeOrder(buy_5);
+
+        printvalues(netflix);
+
+        System.out.println("get line coverage:" + netflix.getStockSymbol()+netflix.getCompanyName()+netflix.getLoPrice()+netflix.getVolume());
+
     }
     public static void printvalues(Stock stock)
     {

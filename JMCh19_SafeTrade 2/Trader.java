@@ -23,28 +23,22 @@ public Trader(Brokerage brokerage, String screenName, String password)
 
 public boolean hasMessages()
 {
-    return(mailbox.isEmpty());
+    return(!mailbox.isEmpty());
 }
 
 public void receiveMessage(String message)
 {
-    if(message != null)
-    {
-        mailbox.add(message);
-        while (!mailbox.isEmpty())
-    {
-        while (this.myView!=null)
-        {myView.showMessage(mailbox.poll());
+    mailbox.add(message);
+        if (myView != null) {
+            while (!mailbox.isEmpty()) {
+                myView.showMessage(mailbox.poll());
+            }
         }
-        if (this.myView==null)
-            break;
-    }
-    }
 }
 
 public int compareTo(Trader t)
 {
-    return screenName.compareTo(t.screenName);
+    return this.screenName.compareToIgnoreCase(t.getName());
 }
 
 public String getName()
@@ -70,6 +64,7 @@ public void placeOrder(TradeOrder trOr)
 public void quit()
 {
     brokerage.logout(this);
+    this.myView=null;
 }
 
 public void setView(TraderView v)
@@ -83,6 +78,15 @@ public void setView(TraderView v)
         if (this.myView==null)
             break;
     }
+}
+
+public boolean equals(Object other)
+{
+    if (!(other instanceof Trader))
+    {
+        throw new ClassCastException("not a trader");
+    }
+    return this.screenName.equalsIgnoreCase(((Trader) other).getName());
 }
 
     //
