@@ -21,11 +21,24 @@ public Trader(Brokerage brokerage, String screenName, String password)
     //this.myView = new TraderWindow(this);
 }
 
+public boolean hasMessages()
+{
+    return(mailbox.isEmpty());
+}
+
 public void receiveMessage(String message)
 {
     if(message != null)
     {
-    mailbox.add(message);
+        mailbox.add(message);
+        while (!mailbox.isEmpty())
+    {
+        while (this.myView!=null)
+        {myView.showMessage(mailbox.poll());
+        }
+        if (this.myView==null)
+            break;
+    }
     }
 }
 
@@ -44,9 +57,9 @@ public String getPassword()
     return password;
 }
 
-public String getQuote(String symbol)
+public void getQuote(String symbol)
 {
-    return brokerage.getQuote(symbol);
+    brokerage.getQuote(symbol,this);
 }
 
 public void placeOrder(TradeOrder trOr)
@@ -62,6 +75,14 @@ public void quit()
 public void setView(TraderView v)
 {
     myView = v;
+    while (!mailbox.isEmpty())
+    {
+        while (this.myView!=null)
+        {myView.showMessage(mailbox.poll());
+        }
+        if (this.myView==null)
+            break;
+    }
 }
 
     //

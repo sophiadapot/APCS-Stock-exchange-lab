@@ -1,9 +1,11 @@
+import java.lang.reflect.*;
+import java.util.*;
+
 public class MyTests_Brokerage {
 
     public static void test() {
 
         System.out.println("\n===== Brokerage Tests =====");
-        // TODO - add tests for Brokerage class
         StockExchange stoExc = new StockExchange();
         Brokerage br = new Brokerage(stoExc);
 
@@ -15,19 +17,22 @@ public class MyTests_Brokerage {
 
         // iterate through, find trader
         Map<String, Trader> ma = br.getTraders();
-        Trader trader;
-        for(Trader t : ma){
+        List<Trader> traderList = new ArrayList<>(ma.values());
+        Trader trader=new Trader(br, null, null);
+        
+        for(Trader t :traderList){
             if (t.getName().equals("admin"))
                 if (t.getPassword().equals("test")){
                     trader = t;
                     break;
                 }
         }
-        TradeOrder trOr = new TradeOrder(trader, "boi", false, true, 40, 10.00)
+        TradeOrder trOr = new TradeOrder(trader, "boi", false, true, 40, 10.00);
         br.placeOrder(trOr);
 
-        System.out.println(br.getQuote("boi"));
-        System.out.println(br.getQuote("bosi"));
+        //bro idfk what you're doing but br.getquote isn't supposed to return anything
+        //System.out.println(br.getQuote("boi",trader));
+        //System.out.println(br.getQuote("bosi",trader));
 
         br.logout(trader);
 

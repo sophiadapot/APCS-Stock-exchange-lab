@@ -18,23 +18,38 @@ public class Brokerage implements Login
     }
 
     public int addUser(String name, String password){
+
+        if (name.length()<4||name.length()>10)
+            return -1;
+        if (password.length()<2||password.length()>10)
+            return -2;
         if(traders.containsKey(name) == false){
             Trader trader = new Trader(this, name, password);
             traders.put(name, trader);
+            return 0;
         }
 
         else
-            System.out.println("Already registered");
+            return -3;
+
+        
         
     }
 
     public int login(String name, String password){
         Trader t = traders.get(name);
+        if (t==null)
+            return -1;
+        if (!t.getPassword().equals(password))
+            return -2;
         if (t!= null && t.getPassword().equals(password) && !loggedTraders.contains(t))
+        {
             loggedTraders.add(t);
+            return 0;
+        }
         
         else
-            System.out.println("Something went wrong in Logging in");
+            return -3;
     }
 
     public void logout(Trader t){
@@ -47,9 +62,9 @@ public class Brokerage implements Login
         exchange.placeOrder(trOr);
     }
 
-    public String getQuote(String symbol)
+    public void getQuote(String symbol, Trader trader)
     {
-        return exchange.getQuote(symbol);
+        trader.receiveMessage(exchange.getQuote(symbol));
     }
 
     //
