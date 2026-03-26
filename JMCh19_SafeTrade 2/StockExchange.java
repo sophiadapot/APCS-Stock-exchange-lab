@@ -25,13 +25,15 @@ public class StockExchange
         if (listedStocks.containsKey(trOr.getSymbol()) != false) 
             listedStocks.get(trOr.getSymbol()).placeOrder(trOr);
         
+        else
+            trOr.getTrader().receiveMessage(trOr.getSymbol() + " not found");
     }
 
     public String getQuote(String symb){
         if(listedStocks.containsKey(symb) != false){
             return listedStocks.get(symb).getQuote();
         }
-        return "No stock found";
+        return symb+" not found";
     }
 
     
