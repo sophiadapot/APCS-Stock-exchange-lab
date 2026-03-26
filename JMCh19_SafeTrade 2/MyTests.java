@@ -10,7 +10,7 @@ public class MyTests {
         MyTests_Stock.test();
         MyTests_PriceComparator.test();
         MyTests_Brokerage.test();
-        //MyTests_StockExchange.test();
+        MyTests_StockExchange.test();
 
         System.out.println("\n=================================");
         System.out.println("          TESTS COMPLETE         ");
