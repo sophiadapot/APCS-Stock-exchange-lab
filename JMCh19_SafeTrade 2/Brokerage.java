@@ -45,6 +45,8 @@ public class Brokerage implements Login
         if (t!= null && t.getPassword().equals(password) && !loggedTraders.contains(t))
         {
             loggedTraders.add(t);
+            if(!t.hasMessages())
+                t.receiveMessage("Welcome to SafeTrade!");
             return 0;
         }
         
@@ -53,9 +55,7 @@ public class Brokerage implements Login
     }
 
     public void logout(Trader t){
-        if (loggedTraders.contains(t)){
-            loggedTraders.remove(t);
-        }
+        loggedTraders.remove(t);
     }
 
     public void placeOrder(TradeOrder trOr){
