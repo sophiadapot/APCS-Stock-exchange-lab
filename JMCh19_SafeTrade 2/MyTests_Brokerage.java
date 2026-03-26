@@ -10,8 +10,12 @@ public class MyTests_Brokerage {
         Brokerage br = new Brokerage(stoExc);
 
         br.addUser("admin", "test");
-        br.addUser("@admin", "test1234");
+        br.addUser("admin", "test");
+        br.addUser("pog","asd");
+        br.addUser("poggler", "s");
+
         br.login("@admin", "test1234");
+        br.login("admin", "test");
         br.login("@admin", "test");
         br.login("@admin", "test");
 
@@ -30,15 +34,16 @@ public class MyTests_Brokerage {
         TradeOrder trOr = new TradeOrder(trader, "boi", false, true, 40, 10.00);
         br.placeOrder(trOr);
 
-        //bro idfk what you're doing but br.getquote isn't supposed to return anything
-        //System.out.println(br.getQuote("boi",trader));
-        //System.out.println(br.getQuote("bosi",trader));
+        
+        br.getQuote("boi",trader);
 
         br.logout(trader);
 
         System.out.println(br.getTraders());
         System.out.println(br.getLoggedTraders());
         System.out.println(br.getExchange());
+
+        br.toString();
 
 
     }
