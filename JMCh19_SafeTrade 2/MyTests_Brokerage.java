@@ -16,8 +16,9 @@ public class MyTests_Brokerage {
 
         br.login("@admin", "test1234");
         br.login("admin", "test");
+        br.login("admin", "test");
         br.login("@admin", "test");
-        br.login("@admin", "test");
+        br.login("@admin", "test123");
 
         // iterate through, find trader
         Map<String, Trader> ma = br.getTraders();
